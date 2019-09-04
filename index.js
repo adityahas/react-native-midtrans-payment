@@ -1,6 +1,6 @@
 
 import { NativeModules } from 'react-native';
 
-const { RNReactNativeMidtrans } = NativeModules;
+const { RNMidtrans } = NativeModules;
 
-export default RNReactNativeMidtrans;
+export default RNMidtrans;

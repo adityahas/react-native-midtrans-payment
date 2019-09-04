@@ -1,7 +1,7 @@
 
-#import "RNReactNativeMidtrans.h"
+#import "RNMidtrans.h"
 
-@implementation RNReactNativeMidtrans
+@implementation RNMidtrans
 
 - (dispatch_queue_t)methodQueue
 {
