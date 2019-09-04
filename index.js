@@ -1,6 +1,18 @@
+import { NativeModules } from 'react-native'
 
-import { NativeModules } from 'react-native';
+const { RNMidtrans } = NativeModules
 
-const { RNMidtrans } = NativeModules;
-
-export default RNMidtrans;
+export default {
+	checkOut: function(
+		optionConnect: ?object,
+		transRequest: ?object,
+		itemDetails: ?object,
+		creditCardOptions: ?object,
+		mapUserDetail: ?object,
+		optionColorTheme: ?object,
+		optionFont: ?object,
+		resultCallback
+	) {
+		RNMidtrans.checkOut(optionConnect, transRequest, itemDetails, creditCardOptions, mapUserDetail, optionColorTheme, optionFont, resultCallback)
+	},
+}
