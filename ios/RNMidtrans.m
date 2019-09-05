@@ -78,10 +78,8 @@ RCT_EXPORT_METHOD(checkOut : (NSDictionary*) optionConect
              MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController alloc] initWithToken:token];
 
              [ctrl presentViewController:vc animated:NO completion:nil];
-             //set the delegate
+             // set the delegate
              vc.paymentDelegate = self;
-
-             callback(@[@"init", [NSNull null]]);
          }
          else {
              callback(@[error.localizedDescription, [NSNull null]]);
@@ -98,8 +96,10 @@ RCT_EXPORT_METHOD(checkOut : (NSDictionary*) optionConect
     
     if (error) {
         self.callback(@[error]);
+    } else if (result) {
+        self.callback(@[result.transactionStatus, [NSNull null]]);
     } else {
-        self.callback(@[@"", result.transactionStatus]);
+        self.callback(@[@"cancelled", [NSNull null]]);
     }
     
     self.callback = nil;
