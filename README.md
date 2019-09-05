@@ -1,45 +1,47 @@
-
 # react-native-midtrans
 
 Midtrans payment gateway forked from 'https://github.com/mfachmirizal/react-native-midtrans-payment-gateway'
 
 ## Getting started
 
-`$ npm install @adityahas/react-native-midtrans --save`
+`$ npm install react-native-midtrans-payment --save`
 
 ### Mostly automatic installation
 
-`$ react-native link @adityahas/react-native-midtrans`
+`$ react-native link react-native-midtrans-payment`
 
 ### Manual installation
-
 
 #### iOS
 
 change Podfile into this or lastest version
 
-#### pod 'MidtransCoreKit', '~> 1.14.3' 
+#### pod 'MidtransCoreKit', '~> 1.14.3'
+
 #### pod 'MidtransKit', '~> 1.14.3'
 
 1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-midtrans` and add `RNMidtrans.xcodeproj`
+2. Go to `node_modules` ➜ `react-native-midtrans-payment` and add `RNMidtrans.xcodeproj`
 3. In XCode, in the project navigator, select your project. Add `libRNMidtrans.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 4. Run your project (`Cmd+R`)<
 
 #### Android
 
 1. Open up `android/app/src/main/java/[...]/MainApplication.java`
-  - Add `import com.adityahas.midtrans.RNMidtransPackage;` to the imports at the top of the file
-  - Add `new RNMidtransPackage()` to the list returned by the `getPackages()` method
+
+-   Add `import com.adityahas.midtrans.RNMidtransPackage;` to the imports at the top of the file
+-   Add `new RNMidtransPackage()` to the list returned by the `getPackages()` method
+
 2. Append the following lines to `android/settings.gradle`:
-  	```
-  	include ':react-native-midtrans'
-  	project(':react-native-midtrans').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-midtrans/android')
-  	```
+    ```
+    include ':react-native-midtrans-payment'
+    project(':react-native-midtrans-payment').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-midtrans-payment/android')
+    ```
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
-  	```
-      compile project(':react-native-midtrans')
-  	```
+
+    ```
+      compile project(':react-native-midtrans-payment')
+    ```
 
 4. Append midtrans repository to application level build.gradle
     ```
@@ -48,8 +50,9 @@ change Podfile into this or lastest version
     ```
 
 ## Usage
+
 ```javascript
-import PaymentGateway from 'react-native-midtrans';
+import PaymentGateway from 'react-native-midtrans-payment';
 
 async pay(){
         const optionConnect = {

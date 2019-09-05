@@ -17,6 +17,6 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/adityahas/react-native-midtrans.git"
+		"url": "git+https://github.com/adityahas/react-native-midtrans-payment.git"
 	}
 }
