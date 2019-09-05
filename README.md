@@ -1,4 +1,4 @@
-# react-native-midtrans
+# react-native-midtrans-payment
 
 Midtrans payment gateway forked from 'https://github.com/mfachmirizal/react-native-midtrans-payment-gateway'
 
