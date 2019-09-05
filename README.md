@@ -5,11 +5,11 @@ Midtrans payment gateway forked from 'https://github.com/mfachmirizal/react-nati
 
 ## Getting started
 
-`$ npm install react-native-midtrans-payment-gateway --save`
+`$ npm install @adityahas/react-native-midtrans --save`
 
 ### Mostly automatic installation
 
-`$ react-native link react-native-midtrans-payment-gateway`
+`$ react-native link @adityahas/react-native-midtrans`
 
 ### Manual installation
 
