@@ -20,10 +20,10 @@ public class TransactionCallback implements TransactionFinishedCallback {
 
     @Override
     public void onTransactionFinished(TransactionResult transactionResult) {
-        Log.d("result", transactionResult.getStatus());
         if (transactionResult.isTransactionCanceled()) {
             this.callback.invoke("cancelled");
         } else {
+            Log.d("result", transactionResult.getStatus());
             this.callback.invoke(transactionResult.getStatus());
         }
     }

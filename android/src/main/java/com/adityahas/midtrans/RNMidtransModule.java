@@ -42,7 +42,7 @@ public class RNMidtransModule extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
-        return "MidtransModule";
+        return "RNMidtrans";
     }
 
     @Override
