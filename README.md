@@ -54,8 +54,8 @@ import PaymentGateway from 'react-native-midtrans';
 async pay(){
         const optionConnect = {
             clientKey: "your client key",
-            urlMerchant: "https://domain.net/" <<-- will hit https://domain.net/charge,
-            sandbox : true <<-- it works for IOS only, change to false if use production
+            urlMerchant: "https://domain.net/", // will hit https://domain.net/charge
+            sandbox : true, // works on iOS only, change it to false on production
         }
 
         const transRequest = {
