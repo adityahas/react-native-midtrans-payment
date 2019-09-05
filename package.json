@@ -1,6 +1,6 @@
 {
 	"name": "react-native-midtrans-payment",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Midtrans payment gateway forked from 'https://github.com/mfachmirizal/react-native-midtrans-payment-gateway'.",
 	"main": "index.js",
 	"keywords": [
