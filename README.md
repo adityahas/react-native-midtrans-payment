@@ -24,10 +24,12 @@ change Podfile into this or lastest version
 2. Go to `node_modules` ➜ `react-native-midtrans-payment` and add `RNMidtrans.xcodeproj`
 3. In XCode, in the project navigator, select your project. Add `libRNMidtrans.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 4. Whitelist the support apps like Gojek by adding bellow value on Info.plist
-  `<key>LSApplicationQueriesSchemes</key>
+  ```
+  <key>LSApplicationQueriesSchemes</key>
   <array>
     <string>gojek</string>
-  </array>`
+  </array>
+  ```
 5. Run your project (`Cmd+R`)<
 
 #### Android
