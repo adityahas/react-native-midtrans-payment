@@ -26,11 +26,11 @@ RCT_EXPORT_METHOD(checkOut : (NSDictionary*) optionConect
                   : (NSDictionary*) optionColorTheme
                   : (NSDictionary*) optionFont
                   : (RCTResponseSenderBlock)callback){
-
+    
     [CONFIG setClientKey:[optionConect valueForKey:@"clientKey"]
              environment:[[optionConect valueForKey:@"sandbox"] boolValue] ? MidtransServerEnvironmentSandbox : MidtransServerEnvironmentProduction
        merchantServerURL:[optionConect valueForKey:@"urlMerchant"]];
-
+    
     NSMutableArray *itemitems = [[NSMutableArray alloc] init];
     for (NSDictionary *ele in items) {
         MidtransItemDetail *tmp =
@@ -40,7 +40,7 @@ RCT_EXPORT_METHOD(checkOut : (NSDictionary*) optionConect
                                           quantity:[ele valueForKey:@"qty"]];
         [itemitems addObject:tmp];
     }
-
+    
     MidtransAddress *shippingAddress = [MidtransAddress addressWithFirstName:[mapUserDetail valueForKey:@"fullName"]
                                                                     lastName:@""
                                                                        phone:[mapUserDetail valueForKey:@"phoneNumber"]
@@ -49,13 +49,13 @@ RCT_EXPORT_METHOD(checkOut : (NSDictionary*) optionConect
                                                                   postalCode:[mapUserDetail valueForKey:@"zipcode"]
                                                                  countryCode:[mapUserDetail valueForKey:@"country"]];
     MidtransAddress *billingAddress = [MidtransAddress addressWithFirstName:[mapUserDetail valueForKey:@"fullName"]
-                                                                    lastName:@""
-                                                                       phone:[mapUserDetail valueForKey:@"phoneNumber"]
-                                                                     address:[mapUserDetail valueForKey:@"address"]
-                                                                        city:[mapUserDetail valueForKey:@"city"]
-                                                                  postalCode:[mapUserDetail valueForKey:@"zipcode"]
-                                                                 countryCode:[mapUserDetail valueForKey:@"country"]];
-
+                                                                   lastName:@""
+                                                                      phone:[mapUserDetail valueForKey:@"phoneNumber"]
+                                                                    address:[mapUserDetail valueForKey:@"address"]
+                                                                       city:[mapUserDetail valueForKey:@"city"]
+                                                                 postalCode:[mapUserDetail valueForKey:@"zipcode"]
+                                                                countryCode:[mapUserDetail valueForKey:@"country"]];
+    
     MidtransCustomerDetails *customerDetail =
     [[MidtransCustomerDetails alloc] initWithFirstName:[mapUserDetail valueForKey:@"fullName"]
                                               lastName:@"lastname"
@@ -63,50 +63,57 @@ RCT_EXPORT_METHOD(checkOut : (NSDictionary*) optionConect
                                                  phone:[mapUserDetail valueForKey:@"phoneNumber"]
                                        shippingAddress:shippingAddress
                                         billingAddress:billingAddress];
-
+    
     NSNumber *totalAmount = [NSNumber numberWithInt:[[transRequest valueForKey:@"totalAmount"] intValue]];
     MidtransTransactionDetails *transactionDetail =
     [[MidtransTransactionDetails alloc] initWithOrderID:[transRequest valueForKey:@"transactionId"]
                                          andGrossAmount:totalAmount];
     
     self.callback = callback;
-
+    
     [[MidtransMerchantClient shared]
      requestTransactionTokenWithTransactionDetails:transactionDetail
      itemDetails:itemitems
      customerDetails:customerDetail
      completion:^(MidtransTransactionTokenResponse * _Nullable token, NSError *_Nullable error) {
-         if (token) {
-             UIViewController *ctrl = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-
-             MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController alloc] initWithToken:token];
-
-             [ctrl presentViewController:vc animated:NO completion:nil];
-             // set the delegate
-             vc.paymentDelegate = self;
-         }
-         else {
-             callback(@[error.localizedDescription, [NSNull null]]);
-         }
-     }];
+        if (token) {
+            UIViewController *ctrl = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+            
+            MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController alloc] initWithToken:token];
+            
+            [ctrl presentViewController:vc animated:NO completion:nil];
+            // set the delegate
+            vc.paymentDelegate = self;
+        }
+        else {
+            callback(@[error.localizedDescription, [NSNull null]]);
+        }
+    }];
 };
 
 #pragma mark - MidtransUIPaymentViewControllerDelegate
 - (void)finishPayment:(MidtransTransactionResult *)result error:(NSError *)error
 {
     if (self.callback == nil) {
+        RCTLogInfo(@"callback is null");
         return;
     }
     
+    RCTLogInfo(@"finishPayment: %@", result);
+    
     if (error) {
         self.callback(@[error]);
+        self.callback = nil;
     } else if (result) {
-        self.callback(@[result.transactionStatus, [NSNull null]]);
+        if (![result.paymentType isEqual: @"gopay"] || [result.transactionStatus isEqual: @"settlement"]) // add this to temporary fix gopay return status pending instead of cancelled
+        {
+            self.callback(@[result.transactionStatus, [NSNull null]]);
+            self.callback = nil;
+        }
     } else {
         self.callback(@[@"cancelled", [NSNull null]]);
+        self.callback = nil;
     }
-    
-    self.callback = nil;
 }
 
 - (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentSuccess:(MidtransTransactionResult *)result{
