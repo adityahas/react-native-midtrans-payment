@@ -27,7 +27,7 @@ public class TransactionCallback implements TransactionFinishedCallback {
             this.callback.invoke(transactionResult.getStatus());
         }
 
-        if (transactionResult != null)
+        if (transactionResult != null && transactionResult.getStatus() != null)
             Log.d("result", transactionResult.getStatus());
     }
 }
