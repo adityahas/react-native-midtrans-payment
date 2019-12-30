@@ -16,9 +16,9 @@ Midtrans payment gateway forked from 'https://github.com/mfachmirizal/react-nati
 
 Add bellow to your pod file :
 
-`pod 'MidtransCoreKit', '~> 1.14.3'`
+`pod 'MidtransCoreKit', '1.16.1'`
 
-`pod 'MidtransKit', '~> 1.14.3'`
+`pod 'MidtransKit', '1.16.1`
 
 Don't forget to run `pod install` inside ios folder after adding above libs.
 
