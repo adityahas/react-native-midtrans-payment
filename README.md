@@ -20,7 +20,7 @@ Add bellow to your pod file :
 
 `pod 'MidtransKit', '1.16.1'`
 
-Don't forget to run `pod install` inside ios folder after adding above libs.
+Don't forget to run `pod install` inside ios folder after adding above lines.
 
 And then follow bellow steps :
 1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
